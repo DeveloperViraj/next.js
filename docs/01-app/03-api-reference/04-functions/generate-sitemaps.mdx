@@ -41,10 +41,6 @@ export default async function sitemap({
   const end = start + 50000
   const products = await getProducts(
     `SELECT id, date FROM products WHERE id BETWEEN ${start} AND ${end}`
-  )
-  return products.map((product) => ({
-    url: `${BASE_URL}/product/${product.id}`,
-    lastModified: product.date,
   }))
 }
 ```
@@ -58,74 +54,7 @@ export async function generateSitemaps() {
 }
 
 export default async function sitemap({ id }) {
-  // Google's limit is 50,000 URLs per sitemapCollapse commentComment on line L61vercel[bot] commented on Nov 23, 2025 vercel[bot]on Nov 23, 2025ContributorMore actionsThe JavaScript code example is missing its opening code fence marker, causing malformed markdown formatting. The code starting at line 57 should be wrapped with ```js filename="app/product/sitemap.js" switcher at line 57 instead of appearing as bare text.
-
-View Details
-
-
-📝 Patch Details
-diff --git a/docs/01-app/03-api-reference/04-functions/generate-sitemaps.mdx b/docs/01-app/03-api-reference/04-functions/generate-sitemaps.mdx
-index 163d436364..0bd1991a6c 100644
---- a/docs/01-app/03-api-reference/04-functions/generate-sitemaps.mdx
-+++ b/docs/01-app/03-api-reference/04-functions/generate-sitemaps.mdx
-@@ -54,6 +54,8 @@ export default async function sitemap({
-   }))
- }
- ```
-+
-+```js filename="app/product/sitemap.js" switcher
- import { BASE_URL } from '@/app/lib/constants'
- 
- export async function generateSitemaps() {
-
-    
-      
-    
-
-      
-    
-
-    
-  
-
-Analysis
-Missing opening markdown code fence for JavaScript example
-What fails: The JavaScript code example in the generateSitemaps documentation (lines 57-75) lacks an opening code fence marker, causing malformed markdown formatting. The code appears as raw text without proper syntax highlighting or language specification.
-How to reproduce:
-# View the raw markdown file
-cat docs/01-app/03-api-reference/04-functions/generate-sitemaps.mdx | sed -n '50,80p'
-    
-      
-    
-
-      
-    
-
-    
-  
-Result: Lines 56-76 show:
-
-Line 56: ``` (closes TypeScript block)
-Lines 57-75: JavaScript code with no opening fence marker
-Line 76: ``` (orphaned closing fence)
-
-This creates ambiguous markdown where the closing fence on line 76 has no matching opening fence for the JavaScript code.
-Expected: Lines 57-76 should be:
-
-Line 56: ``` (closes TypeScript block)
-Line 57: ```js filename="app/product/sitemap.js" switcher (opens JavaScript block with language specification)
-Lines 58-75: JavaScript code
-Line 76: ``` (closes JavaScript block)
-
-Impact: Documentation renderers will fail to properly highlight and format the JavaScript code block, displaying it as raw unformatted text instead of a syntax-highlighted code snippet with the switcher attribute for showing alternative language variants.
-
-
-
-
-
-
-
-ReactWrite a replyResolve commentCode has comments. Press enter to view.
+  // Google's limit is 50,000 URLs per sitemapExpand commentComment on line L61ResolvedCode has comments. Press enter to view.
   const start = id * 50000
   const end = start + 50000
   const products = await getProducts(
@@ -136,11 +65,3 @@ ReactWrite a replyResolve commentCode has comments. Press enter to view.
     lastModified: product.date,
   }))
 }
-```
-
-## Version History
-
-| Version   | Changes                                                                                                                                              |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `v15.0.0` | `generateSitemaps` now generates consistent URLs between development and production                                                                  |
-| `v13.3.2` | `generateSitemaps` introduced. In development, you can view the generated sitemap on `/.../sitemap.xml/[id]`. For example, `/product/sitemap.xml/1`. |
